@@ -1,4 +1,5 @@
 const express = require("express");
+const { User } = require("../models");
 const router = express.Router();
 
 function asyncHandler(cb) {
@@ -13,7 +14,10 @@ function asyncHandler(cb) {
 
 router.get(
   "/",
-  asyncHandler(async (req, res, next) => {})
+  asyncHandler(async (req, res, next) => {
+    const users = await User.findAll();
+    res.json(users);
+  })
 );
 
 module.exports = router;
