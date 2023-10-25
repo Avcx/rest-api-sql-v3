@@ -31,7 +31,7 @@ router.post(
       ) {
         const errors = err.errors.map((e) => e.message);
         res.status(400).json({
-          errors,
+          "Validation Errors": errors,
         });
       } else {
         next(err);
