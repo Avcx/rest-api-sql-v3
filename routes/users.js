@@ -6,9 +6,9 @@ const { authenticateUser } = require("../middleware/userAuth");
 
 router.get(
   "/",
-  authenticateUser,
   asyncHandler(async (req, res, next) => {
-    res.status(200).end();
+    const users = await User.findAll();
+    res.json([users]);
   })
 );
 

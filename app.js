@@ -13,10 +13,9 @@ const enableGlobalErrorLogging =
 
 // create the Express app
 const app = express();
-
+app.use(express.json());
 // setup morgan which gives us http request logging
 app.use(morgan("dev"));
-
 app.use("/api/users", userRoute);
 
 // setup a friendly greeting for the root route
@@ -52,7 +51,7 @@ app.set("port", process.env.PORT || 5000);
   try {
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
-    await sequelize.sync({ force: true });
+    await sequelize.sync();
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
