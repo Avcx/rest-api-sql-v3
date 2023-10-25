@@ -22,9 +22,21 @@ router.post(
   "/",
   asyncHandler(async (req, res, next) => {
     try {
-      User.create(req.body);
+      await User.create(req.body);
       res.status(201).end();
-    } catch (error) {}
+    } catch (err) {
+      if (
+        err.name === "SequelizeValidationError" ||
+        "SequelizeUniqueConstraintError"
+      ) {
+        const errors = err.errors.map((e) => e.message);
+        res.status(401).json({
+          errors,
+        });
+      } else {
+        next(err);
+      }
+    }
   })
 );
 
