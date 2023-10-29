@@ -89,14 +89,30 @@ router.put(
         });
       }
     } else {
-      throw new Error("This course doesn't exist!");
+      res.status(400).json({ message: "This course doesn't exist!" });
     }
   })
 );
 
 router.delete(
   "/:id",
-  asyncHandler(async (req, res, next) => {})
+  authenticateUser,
+  asyncHandler(async (req, res, next) => {
+    const user = req.currentUser;
+    const course = await Course.findByPk(req.params.id);
+    if (course) {
+      if (course.userId === user.id) {
+        await course.destroy();
+        res.status(204).end();
+      } else {
+        res.status(403).json({
+          message: "You do not own this course!",
+        });
+      }
+    } else {
+      res.status(400).json({ message: "This course doesn't exist!" });
+    }
+  })
 );
 
 module.exports = router;
