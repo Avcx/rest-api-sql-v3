@@ -4,6 +4,8 @@ const router = express.Router();
 const asyncHandler = require("../middleware/asyncHandler");
 const { authenticateUser } = require("../middleware/userAuth");
 
+// GET "api/courses" route
+
 router.get(
   "/",
   asyncHandler(async (req, res, next) => {
@@ -15,6 +17,8 @@ router.get(
     res.json(courses);
   })
 );
+
+// POST "api/courses" route
 
 router.post(
   "/",
@@ -42,6 +46,8 @@ router.post(
   })
 );
 
+// GET "api/courses/:id" route
+
 router.get(
   "/:id",
   asyncHandler(async (req, res, next) => {
@@ -58,6 +64,8 @@ router.get(
     res.json(course);
   })
 );
+
+// PUT "api/courses/:id" route
 
 router.put(
   "/:id",
@@ -93,6 +101,8 @@ router.put(
     }
   })
 );
+
+// DELETE "api/courses/:id" route
 
 router.delete(
   "/:id",

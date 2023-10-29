@@ -4,6 +4,8 @@ const router = express.Router();
 const asyncHandler = require("../middleware/asyncHandler");
 const { authenticateUser } = require("../middleware/userAuth");
 
+// GET "/api/users" route
+
 router.get(
   "/",
   authenticateUser,
@@ -17,6 +19,8 @@ router.get(
     });
   })
 );
+
+// POST "/api/users" route
 
 router.post(
   "/",
