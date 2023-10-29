@@ -16,6 +16,27 @@ router.get(
   })
 );
 
+router.post(
+  "/",
+  asyncHandler(async (req, res, next) => {
+    try {
+      await Course.create(req.body);
+    } catch (err) {
+      if (
+        err.name === "SequelizeValidationError" ||
+        "SequelizeUniqueConstraintError"
+      ) {
+        const errors = err.errors.map((e) => e.message);
+        res.status(400).json({
+          "Validation Errors": errors,
+        });
+      } else {
+        next(err);
+      }
+    }
+  })
+);
+
 router.get(
   "/:id",
   asyncHandler(async (req, res, next) => {
@@ -31,6 +52,17 @@ router.get(
     });
     res.json(course);
   })
+);
+
+router.put(
+  "/:id",
+  authenticateUser,
+  asyncHandler(async (req, res, next) => {})
+);
+
+router.delete(
+  "/:id",
+  asyncHandler(async (req, res, next) => {})
 );
 
 module.exports = router;
