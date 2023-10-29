@@ -8,18 +8,32 @@ module.exports = (sequelize) => {
       title: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "'title' cannot be an empty string!",
+          },
+          notNull: {
+            msg: "Please provide a value for 'title'!",
+          },
+        },
       },
       description: {
         type: DataTypes.TEXT,
         allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "'description' cannot be an empty string!",
+          },
+          notNull: {
+            msg: "Please provide a value for 'description'!",
+          },
+        },
       },
       estimatedTime: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       materialsNeeded: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
     },
     { sequelize }
