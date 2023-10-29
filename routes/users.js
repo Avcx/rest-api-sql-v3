@@ -23,7 +23,7 @@ router.post(
   asyncHandler(async (req, res, next) => {
     try {
       await User.create(req.body);
-      res.status(201).redirect("/");
+      res.status(201);
     } catch (err) {
       if (
         err.name === "SequelizeValidationError" ||
