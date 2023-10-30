@@ -11,8 +11,15 @@ router.get(
   asyncHandler(async (req, res, next) => {
     const courses = await Course.findAll({
       attributes: {
-        exclude: ["createdAt", "updatedAt"],
+        exclude: ["createdAt", "updatedAt", "userId"],
       },
+      include: [
+        {
+          model: User,
+          as: "Owner",
+          attributes: ["firstName", "LastName", "emailAddress"],
+        },
+      ],
     });
     res.json(courses);
   })
@@ -25,11 +32,11 @@ router.post(
   authenticateUser,
   asyncHandler(async (req, res, next) => {
     try {
-      await Course.create({
+      const newCourse = await Course.create({
         ...req.body,
         userId: req.currentUser.id,
       });
-      res.status(201).end();
+      res.status(201).redirect("/api/courses/" + newCourse.id);
     } catch (err) {
       if (
         err.name === "SequelizeValidationError" ||
@@ -58,6 +65,8 @@ router.get(
       include: [
         {
           model: User,
+          as: "Owner",
+          attributes: ["firstName", "LastName", "emailAddress"],
         },
       ],
     });
