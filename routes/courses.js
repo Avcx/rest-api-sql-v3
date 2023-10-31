@@ -36,7 +36,7 @@ router.post(
         ...req.body,
         userId: req.currentUser.id,
       });
-      res.status(201).redirect("/api/courses/" + newCourse.id);
+      res.status(201).location(`courses/${newCourse.id}`).end();
     } catch (err) {
       if (
         err.name === "SequelizeValidationError" ||
