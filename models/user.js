@@ -68,7 +68,7 @@ module.exports = (sequelize, DataTypes) => {
         fieldName: "userId",
         allowNull: false,
       },
-      as: "Owner",
+      as: "owner",
     });
   };
   return User;

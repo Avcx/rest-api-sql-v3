@@ -44,7 +44,7 @@ module.exports = (sequelize) => {
         fieldName: "userId",
         allowNull: false,
       },
-      as: "Owner",
+      as: "owner",
     });
   };
   return Course;

@@ -16,12 +16,12 @@ router.get(
       include: [
         {
           model: User,
-          as: "Owner",
-          attributes: ["firstName", "LastName", "emailAddress"],
+          as: "owner",
+          attributes: ["firstName", "lastName", "emailAddress"],
         },
       ],
     });
-    res.json(courses);
+    res.json(courses).status(200);
   })
 );
 
@@ -65,8 +65,8 @@ router.get(
       include: [
         {
           model: User,
-          as: "Owner",
-          attributes: ["firstName", "LastName", "emailAddress"],
+          as: "owner",
+          attributes: ["firstName", "lastName", "emailAddress"],
         },
       ],
     });
